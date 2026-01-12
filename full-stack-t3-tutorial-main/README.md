@@ -1,35 +1,97 @@
-# Full stack tutorial by Daniel Bark
-This tutorial creates an authenticated Todo app with TRPC, Next.js, Prisma, Tailwind.
-The app uses optimistic updates for all mutations.
-Auth is via magic link email.
+# 📝 T3 Stack To-Do App
 
-# Create T3 App
+This is a simple **To-Do application** built using the **T3 Stack** (Next.js, tRPC, Prisma, and NextAuth).  
+The app uses **email-based authentication**, **SQLite** for the database, and **Prisma Studio** for database viewing.
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+---
 
-## What's next? How do I make an app with this?
+##  Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- Email-based authentication using NextAuth
+- Verification link printed to the server console
+- Create and view to-do items
+- SQLite database
+- Prisma ORM with migrations
+- Prisma Studio for database inspection
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+---
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## 🧱 Tech Stack
 
-## Learn More
+- **Next.js**
+- **tRPC**
+- **Prisma**
+- **NextAuth**
+- **SQLite**
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+---
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## 🔐 Authentication Flow
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+The app uses **email authentication** through NextAuth.
 
-## How do I deploy this?
+1. On the sign-in page, the user enters their email.
+2. A verification link is generated.
+3. Instead of sending an email, the verification link is printed to the **server console**.
+4. The user opens the link from the console to complete login.
+5. After authentication, the user can create
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+This behavior is configured in:
+/src/server/auth.ts
 
-An Email service also needs to be added for this partiular project
+The email provider is set up to log the verification link using `console.log()` instead of sending a real email.
+
+---
+
+## 📋 To-Do Functionality
+
+Once logged in, users can:
+- Create new to-do items
+- View existing to-dos
+
+This is a simple CRUD setup meant for learning and experimentation.
+---
+
+## 🧪 Running the App
+npm run dev
+
+
+Then open:
+
+http://localhost:3000
+
+
+Sign in with your email, copy the verification link from the terminal, and start adding to-dos.
+
+
+---
+
+## 🗄 Database Setup (Prisma + SQLite)
+
+This project uses **SQLite** as the database and **Prisma** as the ORM.
+
+## Generate Prisma Client
+```bash
+npx prisma generate
+
+Create & Apply Migrations
+npx prisma migrate dev --name init
+
+This:
+
+->Creates the database
+->Applies the schema
+->Generates a migration SQL file at:
+    /prisma/migrations/**/migration.sql
+
+##🔍 Viewing the Database
+To open Prisma Studio:
+
+>>npx prisma studio
+You’ll see a message :Prisma Studio is up on http://localhost:5555
+
+Open that link in your browser to:
+1.View tables
+2.Inspect users and to-dos
+3.Edit records manually
+
